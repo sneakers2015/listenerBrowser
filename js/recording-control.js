@@ -1,4 +1,4 @@
-var RecordingControlUI = (function() {
+(function() {
     console.log('init');
 
     var page = document.getElementById( "recording-sound-page" );
@@ -37,13 +37,8 @@ var RecordingControlUI = (function() {
         samplePackage = matcher.stopSampling();
         // stop draw canvas
         matcher.stopAnalyser(analyser);
-
-        var title = $('#page-sound-info-titile-input').val();
-        var num = $('#page-sound-info-call-input').val();
-        var msg = $('#page-sound-info-message-input').val();
-        addNewSound(title, null, samplePackage, num, msg);
     }
-    
+
     btn_play.addEventListener('click', function(ev) {
         if (getState() === 'recording') {
             endRecord();
@@ -51,7 +46,6 @@ var RecordingControlUI = (function() {
         } else {
             startRecord();
             setState('recording');
-            
         }
     });
 
@@ -67,6 +61,15 @@ var RecordingControlUI = (function() {
         }
     }
 
+    $('#recording-page-save-btn').bind('click', function() {
+        var title = $('#page-sound-info-titile-input').val();
+        var num = $('#page-sound-info-call-input').val();
+        var msg = $('#page-sound-info-message-input').val();
+        addNewSound(title, null, samplePackage, num, msg);
+
+        tau.changePage($('#soundlist-page')[0]);
+    });
+
     $('#recording-sound-page').bind("pageshow", function() {
         console.log('pageshow');
 
@@ -77,10 +80,7 @@ var RecordingControlUI = (function() {
         _setValues(defaultTitle, defaultNum, defaultMsg);
     });
 
-    page.addEventListener( "pagebeforeshow", function() {
+    $('#recording-sound-page').bind("pagebeforeshow", function() {
         $(btn_play).removeClass(CLASS_RECORDING);
     });
-
-    return {
-    }
 }());

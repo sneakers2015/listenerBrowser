@@ -175,30 +175,6 @@ var SoundListControl = (function() {
         tau.changePage($('#recording-sound-page')[0]);
     });
 
-    var currentSound = null;
-
-    function _setValues (title, dial, message) {
-        if (title) {
-            $('#page-sound-info-titile-input').val(title);
-        }
-        if (dial) {
-            $('#page-sound-info-call-input').val(dial);
-        }
-        if (message) {
-            $('#page-sound-info-message-input').val(message);
-        }
-    }
-
-    $('#page-sound-info-btn-ok').bind('click', function() {
-        if (currentSound) {
-            currentSound.title = $('#page-sound-info-titile-input').val();
-            currentSound.dialNumber = $('#page-sound-info-call-input').val();
-            currentSound.message = $('#page-sound-info-message-input').val();
-        }
-        currentSound = null;
-        tau.changePage($('#soundlist-page')[0]);
-    });
-
     return {
         updateSoundList : updateSoundList
     };
