@@ -49,8 +49,10 @@ body {
 }
 
 #soundCanvas {
-  display: block;
-  background-color: black;
+    display: block;
+    border-color: red;
+    border-style: solid;
+    border-width: 1px;
 }
 
 /* ---------------------------------- LISTVIEW ---------------------------------- */
