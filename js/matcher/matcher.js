@@ -48,7 +48,7 @@ function Matcher(options, audioReadyHandler) {
 
 		var analyser = {};
 		analyser.id = canvasId;
-		//var canvas = document.getElementById(analyser.id);
+		var canvas = document.getElementById(analyser.id);
 		/*
 		if (!source) {
 			source = "audio input";
@@ -62,9 +62,9 @@ function Matcher(options, audioReadyHandler) {
 		}
 		*/
 		
-//		analyser.width = canvas.width;
-//		analyser.height = canvas.height;
-//		analyser.context = canvas.getContext("2d");
+		analyser.width = canvas.width;
+		analyser.height = canvas.height;
+		analyser.context = canvas.getContext("2d");
 		analyser.minFreqRatio = minFreqRatio;
 		analyser.maxFreqRatio = maxFreqRatio;
 		return analyser;
@@ -192,7 +192,7 @@ function Matcher(options, audioReadyHandler) {
 			maxFreqRatio < minFreqRatio) {
 			maxFreqRatio = 1.0;
 		}
-		//var canvas = document.getElementById(analyser.id);
+		var canvas = document.getElementById(analyser.id);
 		
 		// todo
 	}

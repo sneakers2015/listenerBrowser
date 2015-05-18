@@ -48,6 +48,11 @@ body {
     100% {opacity: 1.0;}
 }
 
+#soundCanvas {
+  display: block;
+  background-color: black;
+}
+
 /* ---------------------------------- LISTVIEW ---------------------------------- */
 .ui-listview li .li-text-sub {
 	display: block;

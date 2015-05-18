@@ -1,11 +1,8 @@
-#rcording-sound-page-content
-{
-    background-color : red;    
+#rcording-sound-page-content {
+    background-color : red;
 }
 
-#recording-page-play-btn 
-{        
-    position:fixed;
+#recording-page-play-btn {
     left:130px;
     top:130px;
     opacity : 1.0;
@@ -13,30 +10,15 @@
     height: 100px;
 }
 
-.recording-btn-recording 
-{
+.recording-btn-recording {
     background-image: url(../res/images/btn_stop.png);
 }
 
-.recording-btn-normal
-{
+.recording-btn-normal {
     background-image: url(../res/images/btn_play.png);
 }
 
-.recording-page-equalizer-bg
-{
-    background-image: url(../res/images/equalizer.gif);
-    background-repeat:no-repeat;
-    background-size:contain;
-    position:fixed;
-    width:360px;
-    height:360px;
-    left:0;
-    -webkit-transition:background-color, 1.5s;
-}
-
-#recording-page-play-btn:active 
-{            
+#recording-page-play-btn:active {
     opacity : 0.8;
 }
 

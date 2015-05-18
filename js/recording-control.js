@@ -59,7 +59,7 @@ var RecordingControlUI = (function() {
             intervalId = null;
             $(eualizer_bg).css('display', 'none');
         }
-        
+
         samplePackage = matcher.stopSampling();
         // stop draw canvas
         matcher.stopAnalyser(analyser);

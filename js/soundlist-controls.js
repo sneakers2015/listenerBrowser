@@ -86,6 +86,25 @@ var SoundListControl = (function() {
     function listMatchHandler(event, soundID) {
         console.log('list matchHandler: ' + soundID);
         blink(getSoundItemFromID(soundID));
+        // FIXME:: noti check
+        var position = getLocation();
+        var lat = '';
+        var lng = '';
+        if (position) {
+            lat = position.coords.latitude + "";
+            lng = position.coords.longitude + "";
+        }
+        var sound = listenerApp.getSoundById(soundID);
+        var data = {
+                Lat: lat,
+                Lng: lng,
+                time: (new Date()).toLocaleTimeString(),
+                titile: sound.title,
+                // positon
+                dialNumber: sound.dialNumber,
+                message: sound.message
+        }
+        sendSocket(data);
     }
 
     listElement.addEventListener("swipelist.right", function(evt) {

@@ -302,6 +302,10 @@ function vibrate(flag) {
     }
 }
 
+function sendSocket(data) {
+    Cast.cast.send(JSON.stringify(data));
+}
+
 /**
  * Send SMS
  *
@@ -328,17 +332,18 @@ function sendSMS(number, msg) {
 /**
  * getLocation
  */
+var pos = null;
 function getLocation() {
     if (navigator.geolocation) {
         console.log('geolocation')
-        navigator.geolocation.getCurrentPosition(function showPosition(position) {
+        navigator.geolocation.getCurrentPosition(function(position) {
             console.log("Latitude: " + position.coords.latitude + " Longitude: " + position.coords.longitude);
-            return position;
+            pos = position;
         });
     } else {
         console.log('Geolocation is not supported by this browser.');
     }
-    return null;
+    return pos;
 }
 
 /**

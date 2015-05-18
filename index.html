@@ -90,18 +90,18 @@
                 </div>
             </div>
 
-            <div id="recording-page-equalizer-bg" class="recording-page-equalizer-bg"></div>
+            <div id="soundView" style="overflow: hidden;" class="">
+                <canvas id="soundCanvas" width="340" height="300"></canvas>
+            </div>
             <div id="recording-page-play-btn" class="recording-btn-normal"></div>
         </div>
         <footer class="ui-footer ui-bottom-button ui-fixed">
-            <button id="page-sound-info-btn-ok"  class="ui-btn ui-btn-icon-only btn-icon-chec">Button</button>
+            <button id="page-sound-info-btn-ok"  class="ui-btn ui-btn-icon-only">Save</button>
         </footer>
     </div>
 
     <!-- load tau lib -->
     <script type="text/javascript" src="lib/tau/wearable/js/tau.min.js"></script>
-    <script type="text/javascript" src="js/util/circle-helper.js"></script>
-    <script type="text/javascript" src="js/util/lowBatteryCheck.js"></script>
 
     <!-- load module -->
     <script src="js/app.js"></script>
