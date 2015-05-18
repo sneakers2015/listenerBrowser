@@ -1,23 +1,12 @@
 var SoundListControl = (function() {
     console.log('init');
 
-    var page = document.getElementById( "soundlist-page" );
-    var recordingSoundPage = document.getElementById( "recording-sound-page" );
-    var pageSoundInfo = document.getElementById( "page-sound-info" );
-    var pageSoundHistory = document.getElementById( "page-sound-history" );
-    var listElement = page.querySelector("#sound-listview" );
-
-    var btn_addSound = page.querySelector( "#addSoundBtn" );
-    var soundDeletePopup = page.querySelector( "#sound-delete-popup" );
-    var soundDeletePopupBtnOk = page.querySelector( "#sound-delete-popup-ok" );
-    var soundDeletePopupBtnCancel = page.querySelector( "#sound-delete-popup-cancel" );
-
-    var deleteTargetListItemId = null; //using
+    var listElement = $('#sound-listview')[0];
     var swipeList = null; //dynamic create
 
-    var rotaryDetentHandler;
     function updateSoundList () {
         console.log('updateSoundList');
+
         var soundListView = $('#sound-listview');
         soundListView.children().remove();
         for (var i in listenerApp.sounds) {
@@ -29,6 +18,7 @@ var SoundListControl = (function() {
 
     function addSoundListItem (id, title, enabled, dialNumber) {
         console.log('addSoundListItem');
+
         var li, label, span, input;
         li = document.createElement('li')
         label = document.createElement('label');
@@ -62,6 +52,7 @@ var SoundListControl = (function() {
 
     function removeSoundListItem (id) {
         console.log('removeSoundListItem');
+
         var listItem = listElement.querySelector('#' + id);
         if (listItem) {
             console.log('list item deleted', listItem);
@@ -97,64 +88,46 @@ var SoundListControl = (function() {
         blink(getSoundItemFromID(soundID));
     }
 
-    function openModifyPage (soundID) {
-       SoundInfoControl.openModifySoundPage(soundID);
-//        tau.changePage(modifySoundPage);
-    }
-
     listElement.addEventListener("swipelist.right", function(evt) {
         console.log('swipe right', evt.target);
         var list = evt.currentTarget;
         var target = evt.target;
         deleteTargetElem = target;
-        tau.openPopup(soundDeletePopup);
+        tau.openPopup($('#sound-delete-popup')[0]);
     });
 
+    // FIXME:: swipe left to modify
+/*    var page = document.getElementById( "page-sound-info" );
+    var openModifySoundPage = function (id) {
+        currentSound = listenerApp.getSoundById(id);
+        if (currentSound) {
+            tau.changePage(page);
+            _setValues(currentSound.title, currentSound.dialNumber, currentSound.message);
+        }
+    }
+    function openModifyPage (soundID) {
+       SoundInfoControl.openModifySoundPage(soundID);
+//        tau.changePage(modifySoundPage);
+    }
     listElement.addEventListener("swipelist.left", function(evt) {
        console.log('swipe left', evt.target);
        var id = evt.target.id;
        openModifyPage (id);
-   });
-
-    page.addEventListener( "pageshow", function() {
+   });*/
+ 
+    $('#soundlist-page').bind("pageshow", function() {
         console.log('pageshow');
         listenerApp.on('soundMatched', listMatchHandler);
         updateSoundList();
     });
 
-    page.addEventListener( "pagebeforeshow", function() {
+    $('#soundlist-page').bind("pagebeforeshow", function() {
         console.log('pagebeforeshow');
-
-        // "rotarydetent" event handler
-        rotaryDetentHandler = function(e) {
-            // Get rotary direction
-            direction = e.detail.direction;
-            if (direction === "CW") {
-                tau.changePage(pageSoundHistory);
-            } 
-        };
-
-        // Add rotarydetent handler to document
-        document.addEventListener("rotarydetent", rotaryDetentHandler);
     });
 
-    document.getElementById('sound-delete-popup-cancel').addEventListener('click', function(ev) {
-         tau.closePopup();
-    });
-
-    document.getElementById('sound-delete-popup-ok').addEventListener('click', function(ev) {
-        if (deleteTargetElem !== null) {
-            deleteSound(deleteTargetElem.id);
-            deleteTargetElem.remove();
-            deleteTargetElem = null;
-        }
-        tau.closePopup();
-    });
-
-    page.addEventListener( "pagebeforehide", function() {
+    $('#soundlist-page').bind("pagebeforehide", function() {
         console.log('pagebeforehide');
 
-        document.removeEventListener("rotarydetent", rotaryDetentHandler);
         // release handler
         console.log('off listMatchHandler');
         listenerApp.off('soundMatched', listMatchHandler);
@@ -166,8 +139,45 @@ var SoundListControl = (function() {
         }
     });
 
-    document.getElementById('addSoundBtn').addEventListener('click', function(ev) {
-        tau.changePage(recordingSoundPage);
+    $('#sound-delete-popup-cancel').bind('click', function() {
+        tau.closePopup();
+   });
+
+   $('#sound-delete-popup-ok').bind('click', function() {
+       if (deleteTargetElem !== null) {
+           deleteSound(deleteTargetElem.id);
+           deleteTargetElem.remove();
+           deleteTargetElem = null;
+       }
+       tau.closePopup();
+   });
+
+    $('#addSoundBtn').bind('click', function() {
+        tau.changePage($('#recording-sound-page')[0]);
+    });
+
+    var currentSound = null;
+
+    function _setValues (title, dial, message) {
+        if (title) {
+            $('#page-sound-info-titile-input').val(title);
+        }
+        if (dial) {
+            $('#page-sound-info-call-input').val(dial);
+        }
+        if (message) {
+            $('#page-sound-info-message-input').val(message);
+        }
+    }
+
+    $('#page-sound-info-btn-ok').bind('click', function() {
+        if (currentSound) {
+            currentSound.title = $('#page-sound-info-titile-input').val();
+            currentSound.dialNumber = $('#page-sound-info-call-input').val();
+            currentSound.message = $('#page-sound-info-message-input').val();
+        }
+        currentSound = null;
+        tau.changePage($('#soundlist-page')[0]);
     });
 
     return {

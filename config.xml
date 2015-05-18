@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <widget xmlns="http://www.w3.org/ns/widgets" xmlns:tizen="http://tizen.org/ns/widgets" id="http://yourdomain/listener" version="1.0.0" viewmodes="maximized">
-    <access origin="*" subdomains="true"/>
+    <access origin="*" subdomains="true"></access>
     <tizen:application id="JZI7eTNeRn.listener" package="JZI7eTNeRn" required_version="2.3"/>
     <content src="index.html"/>
     <feature name="http://tizen.org/feature/screen.size.normal"/>
@@ -10,7 +10,7 @@
     <feature name="http://tizen.org/feature/network.internet"/>
     <feature name="http://tizen.org/feature/location.gps"/>
     <icon src="icon.png"/>
-    <name>listener</name>
+    <name>listenerBrowser</name>
     <tizen:privilege name="http://tizen.org/privilege/application.launch"/>
     <tizen:privilege name="http://tizen.org/privilege/audiorecorder"/>
     <tizen:privilege name="http://tizen.org/privilege/mediacapture"/>
