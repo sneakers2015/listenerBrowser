@@ -1,5 +1,3 @@
-window.scrollTo(0,1);
-
 var listenerApp;
 
 (function(jQuery) {
