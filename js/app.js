@@ -301,7 +301,7 @@ function vibrate(flag) {
 }
 
 function sendSocket(data) {
-    Cast.cast.send(JSON.stringify(data));
+    Cast.cast.send("#"+JSON.stringify(data));
 }
 
 /**
