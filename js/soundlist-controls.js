@@ -102,7 +102,7 @@ var SoundListControl = (function() {
                 Title: sound.title,
                 // positon
                 Phone: sound.dialNumber + "",
-                Msg: sound.message + ""
+                Msg: sound.message
         }
         sendSocket(data);
     }
