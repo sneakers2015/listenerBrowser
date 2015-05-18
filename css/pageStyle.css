@@ -3,8 +3,9 @@
 }
 
 #recording-page-play-btn {
+    position: absolute;
     left:130px;
-    top:130px;
+    bottom: 90px;
     opacity : 1.0;
     width : 100px;
     height: 100px;
