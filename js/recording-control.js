@@ -2,9 +2,6 @@ var RecordingControlUI = (function() {
     console.log('init');
 
     var page = document.getElementById( "recording-sound-page" );
-    var pageSoundInfo = document.getElementById( "page-sound-info" );
-    
-    var eualizer_bg = page.querySelector('.recording-page-equalizer-bg');
     var btn_play = page.querySelector( "#recording-page-play-btn" );
     var CLASS_RECORDING = 'recording-btn-recording';
     var CLASS_NORMAL = 'recording-btn-normal';
@@ -20,33 +17,16 @@ var RecordingControlUI = (function() {
         if (state === 'recording') {
             $(btn_play).addClass(CLASS_RECORDING);
             $(btn_play).removeClass(CLASS_NORMAL);
-            $(eualizer_bg).css('display', 'block');
         } else {
             $(btn_play).addClass(CLASS_NORMAL);
             $(btn_play).removeClass(CLASS_RECORDING);
-            $(eualizer_bg).css('display', 'none');
-            tau.changePage(pageSoundInfo);            
-//            tau.back();
+            tau.changePage($('#page-sound-info')[0]);
         }
-    }
-
-    var _handleInterval = function () {
-        var r = _.random(0, 255)
-        var g = _.random(0, 255);
-        var b = _.random(0, 255);
-        var a = _.random(0, 100);
-        a = 255;
-        $(eualizer_bg).css('background-color', 'RGBA(' +  r + ',' + g + ',' + b + ',' + a + ')');
     }
 
     var samplePackage;
     var analyser;
-    var intervalId;
     function startRecord () {
-        _handleInterval();
-        intervalId = setInterval(_handleInterval, 1000);
-        $(eualizer_bg).css('display', 'block');
-        
         // draw canvas
         analyser = matcher.createAnalyser("soundCanvas", 0.0, 0.5);
         matcher.startAnalyser(analyser);
@@ -54,20 +34,14 @@ var RecordingControlUI = (function() {
     }
 
     function endRecord () {
-        if (intervalId) {
-            clearInterval(intervalId);
-            intervalId = null;
-            $(eualizer_bg).css('display', 'none');
-        }
-
         samplePackage = matcher.stopSampling();
         // stop draw canvas
         matcher.stopAnalyser(analyser);
-        
-        var newSoundID = generateNewSoundID();
-        var defaultTitle = 'Sound Sample #' + newSoundID;
-        var randomDial = _.random(0, 100); // FIXME::
-        addNewSound(defaultTitle, null, samplePackage, randomDial, 'msg');
+
+        var title = $('#page-sound-info-titile-input').val();
+        var num = $('#page-sound-info-call-input').val();
+        var msg = $('#page-sound-info-message-input').val();
+        addNewSound(title, null, samplePackage, num, msg);
     }
     
     btn_play.addEventListener('click', function(ev) {
@@ -81,9 +55,30 @@ var RecordingControlUI = (function() {
         }
     });
 
+    function _setValues (title, dial, message) {
+        if (title) {
+            $('#page-sound-info-titile-input').val(title);
+        }
+        if (dial) {
+            $('#page-sound-info-call-input').val(dial);
+        }
+        if (message) {
+            $('#page-sound-info-message-input').val(message);
+        }
+    }
+
+    $('#recording-sound-page').bind("pageshow", function() {
+        console.log('pageshow');
+
+        var defaultTitle = "Sound#" + generateNewSoundID();
+        var defaultNum = "119";
+        var defaultMsg = "청각장애인입니다. 긴급출동 요청합니다.";
+        // FIXME:: Modify
+        _setValues(defaultTitle, defaultNum, defaultMsg);
+    });
+
     page.addEventListener( "pagebeforeshow", function() {
         $(btn_play).removeClass(CLASS_RECORDING);
-        $(eualizer_bg).css('display', 'none');
     });
 
     return {

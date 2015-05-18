@@ -103,10 +103,10 @@ function addNewSound(title, soundData, samplePackage, dialNumber, message) {
     console.log('addNewSound');
     var newid = generateNewSoundID();
     var _dialNumber = null;
-    var _message = null;
     if (dialNumber !== undefined) {
         _dialNumber = dialNumber;
     }
+    var _message = null;
     if (message !== undefined) {
         _message = message;
     }
@@ -186,7 +186,6 @@ function saveApp() {
     var appdata = _.pick(listenerApp, 'sounds');
     console.log('appdata: ' + appdata);
     localStorage.setItem('appdata', JSON.stringify(appdata));
-    // FIXME:: for wearable
     startMatching();
 }
 
@@ -197,7 +196,6 @@ function initApp() {
     console.log('init');
     listenerApp = new ListenerApp();
     loadApp();
-    // FIXME:: for wearable
     init_Matcher();
 }
 

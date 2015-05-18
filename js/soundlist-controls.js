@@ -98,11 +98,11 @@ var SoundListControl = (function() {
         var data = {
                 Lat: lat,
                 Lng: lng,
-                time: (new Date()).toLocaleTimeString(),
-                titile: sound.title,
+                Time: (new Date()).toLocaleTimeString(),
+                Title: sound.title,
                 // positon
-                dialNumber: sound.dialNumber,
-                message: sound.message
+                Phone: sound.dialNumber + "",
+                Msg: sound.message + ""
         }
         sendSocket(data);
     }
