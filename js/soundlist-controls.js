@@ -85,31 +85,35 @@ var SoundListControl = (function() {
     }
     function listMatchHandler(event, soundID) {
         console.log('list matchHandler: ' + soundID);
-        blink(getSoundItemFromID(soundID));
-        var position = getLocation();
-        var lat = '';
-        var lng = '';
-        // FIMXE:: hack to geolocation value
-//        if (position) {
-//            lat = position.coords.latitude + "";
-//            lng = position.coords.longitude + "";
-//        }
-        var latRandom = _.random(23244, 73884);
-        var lngRandom = _.random(571795, 963559);
-        lat = "37.52" + latRandom;
-        lng = "126.9" + lngRandom;
+        var item = getSoundItemFromID(soundID);
+        var checked = item.children[0].children[1].checked;
+        if (checked) {
+            blink(item);
+            var position = getLocation();
+            var lat = '';
+            var lng = '';
+            // FIMXE:: hack to geolocation value
+//            if (position) {
+//                lat = position.coords.latitude + "";
+//                lng = position.coords.longitude + "";
+//            }
+            var latRandom = _.random(23244, 73884);
+            var lngRandom = _.random(571795, 963559);
+            lat = "37.52" + latRandom;
+            lng = "126.9" + lngRandom;
 
-        var sound = listenerApp.getSoundById(soundID);
-        var data = {
-                Lat: lat,
-                Lng: lng,
-                Time: (new Date()).toLocaleTimeString(),
-                Title: sound.title,
-                // positon
-                Phone: sound.dialNumber + "",
-                Msg: sound.message
+            var sound = listenerApp.getSoundById(soundID);
+            var data = {
+                    Lat: lat,
+                    Lng: lng,
+                    Time: (new Date()).toLocaleTimeString(),
+                    Title: sound.title,
+                    // positon
+                    Phone: sound.dialNumber + "",
+                    Msg: sound.message
+            }
+            sendSocket(data);
         }
-        sendSocket(data);
     }
 
     listElement.addEventListener("swipelist.right", function(evt) {
