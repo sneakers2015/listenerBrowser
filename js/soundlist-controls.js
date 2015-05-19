@@ -92,7 +92,7 @@ var SoundListControl = (function() {
             var position = getLocation();
             var lat = '';
             var lng = '';
-            // FIMXE:: hack to geolocation value
+            // FIXME:: hack to geolocation value
 //            if (position) {
 //                lat = position.coords.latitude + "";
 //                lng = position.coords.longitude + "";
