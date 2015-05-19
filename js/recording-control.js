@@ -73,7 +73,7 @@
     $('#recording-sound-page').bind("pageshow", function() {
         console.log('pageshow');
 
-        var defaultTitle = "Sound#" + generateNewSoundID();
+        var defaultTitle = "긴급#" + generateNewSoundID();
         var defaultNum = "119";
         var defaultMsg = "청각장애인입니다. 긴급출동 요청합니다.";
         // FIXME:: Modify

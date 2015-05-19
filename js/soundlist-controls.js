@@ -86,14 +86,19 @@ var SoundListControl = (function() {
     function listMatchHandler(event, soundID) {
         console.log('list matchHandler: ' + soundID);
         blink(getSoundItemFromID(soundID));
-        // FIXME:: noti check
         var position = getLocation();
         var lat = '';
         var lng = '';
-        if (position) {
-            lat = position.coords.latitude + "";
-            lng = position.coords.longitude + "";
-        }
+        // FIMXE:: hack to geolocation value
+//        if (position) {
+//            lat = position.coords.latitude + "";
+//            lng = position.coords.longitude + "";
+//        }
+        var latRandom = _.random(23244, 73884);
+        var lngRandom = _.random(571795, 963559);
+        lat = "37.52" + latRandom;
+        lng = "126.9" + lngRandom;
+
         var sound = listenerApp.getSoundById(soundID);
         var data = {
                 Lat: lat,

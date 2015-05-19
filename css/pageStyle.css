@@ -3,11 +3,11 @@
 }
 
 #recording-page-play-btn {
-    position: absolute;
-    left:130px;
-    bottom: 90px;
-    opacity : 1.0;
-    width : 100px;
+    position: relative;
+    left: 110px;
+    top: 5px;
+    opacity: 1.0;
+    width: 100px;
     height: 100px;
 }
 
